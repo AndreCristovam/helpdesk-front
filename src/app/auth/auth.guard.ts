@@ -10,7 +10,6 @@ export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-
   /* verifica se esta autenticado e libera a nevegação entre as rotas */
   canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let authenticated = this.authService.isAuthenticated();
