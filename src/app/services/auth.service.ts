@@ -34,4 +34,9 @@ export class AuthService {
     }
     return false
   }
+
+  /* limpa os dados do usuário que deslogou */
+  logout(){
+    localStorage.clear();
+  }
 }
