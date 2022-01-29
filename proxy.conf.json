@@ -1,0 +1,11 @@
+{
+    "/HEROKU_PROXY": {
+        "target": "https://helpdesk-backend-prod.herokuapp.com",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/HEROKU_PROXY": "/"
+        }
+    }
+}
