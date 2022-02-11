@@ -4,36 +4,51 @@
         <img class="fullWidth" src="assets/img/tecnico-create.svg" alt="Help Desk">
 
         <section class="section">
-            <mat-checkbox class="margin">Admin</mat-checkbox>  
-            <mat-checkbox class="margin">Cliente</mat-checkbox> 
-            <mat-checkbox class="margin">Técnico</mat-checkbox>           
+            <mat-checkbox class="margin" color="primary">Admin</mat-checkbox>  
+            <mat-checkbox class="margin" color="primary">Cliente</mat-checkbox> 
+            <mat-checkbox class="margin" color="primary">Técnico</mat-checkbox>           
         </section>
         
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>Nome</mat-label>
-            <input matInput placeholder="Nome">
+            <input matInput
+                [formControl]="nome"
+                 required
+                placeholder="Nome"
+                maxlength="50">
             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
         </mat-form-field>
         
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>CPF</mat-label>
-            <input matInput placeholder="CPF">
+            <input matInput 
+                [formControl]="cpf"
+                required
+                placeholder="CPF"
+                mask="000.000.000-00">               
             <mat-icon matSuffix>pin</mat-icon>
         </mat-form-field>
        
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>E-Mail</mat-label>
-            <input matInput placeholder="E-mail">
+            <input matInput 
+                [formControl]="email"
+                required
+                placeholder="E-mail">
             <mat-icon matSuffix>email</mat-icon>
         </mat-form-field>         
         
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>Senha</mat-label>
-            <input type="password" matInput placeholder="Senha">
+            <input type="password" 
+                [formControl]="senha"
+                required
+                matInput 
+                placeholder="Senha">
             <mat-icon matSuffix>password</mat-icon>
         </mat-form-field>        
 
         <button class="fullWidth mat-elevation-z8"  mat-flat-button color="primary">Cadastrar</button>
-        <button class="fullWidth mat-elevation-z8"  mat-flat-button color="warn">Cancelar</button>    
+        <button routerLink="../" class="fullWidth mat-elevation-z8"  mat-flat-button color="warn">Cancelar</button>    
     </form>
 </div>
