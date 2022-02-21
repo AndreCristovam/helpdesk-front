@@ -4,14 +4,16 @@
         <img class="fullWidth" src="assets/img/tecnico-create.svg" alt="Help Desk">
 
         <section class="section">
-            <mat-checkbox class="margin" color="primary">Admin</mat-checkbox>  
-            <mat-checkbox class="margin" color="primary">Cliente</mat-checkbox> 
-            <mat-checkbox class="margin" color="primary">Técnico</mat-checkbox>           
+            <mat-checkbox (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>  
+            <mat-checkbox (click)="addPerfil(1)" class="margin" color="primary">Cliente</mat-checkbox> 
+            <mat-checkbox (click)="addPerfil(2)" class="margin" color="primary">Técnico</mat-checkbox>           
         </section>
         
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>Nome</mat-label>
             <input matInput
+                [(ngModel)]="tecnico.nome"
+                name="nome"
                 [formControl]="nome"
                  required
                 placeholder="Nome"
@@ -22,6 +24,8 @@
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>CPF</mat-label>
             <input matInput 
+                [(ngModel)]="tecnico.cpf"
+                name="cpf"
                 [formControl]="cpf"
                 required
                 placeholder="CPF"
@@ -32,6 +36,8 @@
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>E-Mail</mat-label>
             <input matInput 
+                [(ngModel)]="tecnico.email"
+                name="email"
                 [formControl]="email"
                 required
                 placeholder="E-mail">
@@ -41,6 +47,8 @@
         <mat-form-field class="fullWidth" appearance="legacy">
             <mat-label>Senha</mat-label>
             <input type="password" 
+                [(ngModel)]="tecnico.senha"
+                name="senha"
                 [formControl]="senha"
                 required
                 matInput 
@@ -48,7 +56,7 @@
             <mat-icon matSuffix>password</mat-icon>
         </mat-form-field>        
 
-        <button class="fullWidth mat-elevation-z8"  mat-flat-button color="primary">Cadastrar</button>
+        <button (click)="create()" class="fullWidth mat-elevation-z8"  mat-flat-button color="primary">Cadastrar</button>
         <button routerLink="../" class="fullWidth mat-elevation-z8"  mat-flat-button color="warn">Cancelar</button>    
     </form>
 </div>
