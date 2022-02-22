@@ -1,12 +1,12 @@
 <div class="container mat-elevation-z8">
     <form class="form">
-        <h1 class="fullWidth">Cadastrar Técnico</h1>
+        <h1 class="fullWidth">Atualizar Técnico</h1>
         <img class="fullWidth" src="assets/img/tecnico-create.svg" alt="Help Desk">
 
         <section class="section">
             <mat-checkbox (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>  
             <mat-checkbox (click)="addPerfil(1)" [checked]="true" class="margin" color="primary">Cliente</mat-checkbox> 
-            <mat-checkbox (click)="addPerfil(2)" [checked]="true" class="margin" color="primary">Técnico</mat-checkbox>           
+            <mat-checkbox (click)="addPerfil(2)" class="margin" color="primary">Técnico</mat-checkbox>           
         </section>
         
         <mat-form-field class="fullWidth" appearance="legacy">
@@ -56,7 +56,7 @@
             <mat-icon matSuffix>password</mat-icon>
         </mat-form-field>        
 
-        <button (click)="create()" class="fullWidth mat-elevation-z8"  mat-flat-button color="primary">Cadastrar</button>
-        <button routerLink="../" class="fullWidth mat-elevation-z8"  mat-flat-button color="warn">Cancelar</button>    
+        <button (click)="update()" class="fullWidth mat-elevation-z8"  mat-flat-button color="primary">Atualizar</button>
+        <button routerLink="../../" class="fullWidth mat-elevation-z8"  mat-flat-button color="warn">Cancelar</button>    
     </form>
 </div>
