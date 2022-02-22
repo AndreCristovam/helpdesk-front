@@ -1,7 +1,6 @@
 {
     "/HEROKU_PROXY": {
-        "target": "https://helpdesk-backend-prod.herokuapp.com",
-       // "target": "http://localhost:8080",
+        "target": "https://helpdesk-backend-prod.herokuapp.com",      
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true,
