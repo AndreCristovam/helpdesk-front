@@ -1,0 +1,62 @@
+<div class="container mat-elevation-z8">
+    <form class="form">
+        <h1 class="fullWidth">Cadastrar Cliente</h1>
+        <img class="fullWidth" src="assets/img/tecnico-create.svg" alt="Help Desk">
+
+        <section class="section">
+            <mat-checkbox (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>  
+            <mat-checkbox (click)="addPerfil(1)" [checked]="true" class="margin" color="primary">Cliente</mat-checkbox> 
+            <mat-checkbox (click)="addPerfil(2)" [checked]="true" class="margin" color="primary">Cliente</mat-checkbox>           
+        </section>
+        
+        <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Nome</mat-label>
+            <input matInput
+                [(ngModel)]="cliente.nome"
+                name="nome"
+                [formControl]="nome"
+                 required
+                placeholder="Nome"
+                maxlength="50">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        
+        <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>CPF</mat-label>
+            <input matInput 
+                [(ngModel)]="cliente.cpf"
+                name="cpf"
+                [formControl]="cpf"
+                required
+                placeholder="CPF"
+                mask="000.000.000-00">               
+            <mat-icon matSuffix>pin</mat-icon>
+        </mat-form-field>
+       
+        <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>E-Mail</mat-label>
+            <input matInput 
+                [(ngModel)]="cliente.email"
+                name="email"
+                [formControl]="email"
+                required
+                placeholder="E-mail">
+            <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>         
+        
+        <mat-form-field class="fullWidth" appearance="legacy">
+            <mat-label>Senha</mat-label>
+            <input type="password" 
+                [(ngModel)]="cliente.senha"
+                name="senha"
+                [formControl]="senha"
+                required
+                matInput 
+                placeholder="Senha">
+            <mat-icon matSuffix>password</mat-icon>
+        </mat-form-field>        
+
+        <button (click)="create()" class="fullWidth mat-elevation-z8"  mat-flat-button color="primary">Cadastrar</button>
+        <button routerLink="../" class="fullWidth mat-elevation-z8"  mat-flat-button color="warn">Cancelar</button>    
+    </form>
+</div>
