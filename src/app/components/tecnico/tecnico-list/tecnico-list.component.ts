@@ -1,9 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+
+import { Subscription } from 'rxjs';
 //import { report } from 'process';
 import { Tecnico } from 'src/app/models/tecnicos';
 import { TecnicoService } from 'src/app/services/tecnico.service';
+import { TecnicoUpdateComponent } from '../tecnico-update/tecnico-update.component';
 
 
 @Component({
@@ -15,15 +19,25 @@ export class TecnicoListComponent implements OnInit {
   
   ELEMENT_DATA: Tecnico[] =[]
 
+  refreshTable: Subscription;
+
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'acoes'];
   dataSource = new MatTableDataSource<Tecnico>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  constructor(private service: TecnicoService) { }
+  @Inject(MAT_DIALOG_DATA) public data: {id: Number} // recebendo o Id para o modal
+  constructor(
+   // public dialogRef: MatDialogRef<TecnicoListComponent>, // teste aki
+    private service: TecnicoService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.findAll();
+    this.refresh();
+  }
+
+  ngOnDestroy(): void {
+    this.refreshTable.unsubscribe();
   }
 
   findAll() {
@@ -38,5 +52,21 @@ export class TecnicoListComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+
+  refresh(){
+    this.refreshTable = this.service.refresh$.subscribe(() => {
+      this.findAll();
+    })
+  }
+
+  // Modal Uopdate Tecnico
+  openUpdate(id: Number): void {
+    const dialogRef = this.dialog.open(TecnicoUpdateComponent, {
+      width: '630px', height: '600px',
+      data: { id }//Pegando ID tecnico para editar..
+    });
+  }
+
 
 }

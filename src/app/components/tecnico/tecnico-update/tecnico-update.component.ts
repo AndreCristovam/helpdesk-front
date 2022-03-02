@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Tecnico } from 'src/app/models/tecnicos';
@@ -28,6 +29,9 @@ export class TecnicoUpdateComponent implements OnInit {
   senha: FormControl = new FormControl(null, Validators.minLength(3));
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {id: Number}, // passando Id para o Modal
+    public dialogRef: MatDialogRef<TecnicoUpdateComponent>,
+    public dialog: MatDialog, // modal
     private service: TecnicoService,
     private toast: ToastrService,
     private router: Router,
@@ -35,12 +39,12 @@ export class TecnicoUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     // sempre que o componente inicia ele pega o id da url
-    this.tecnico.id = this.route.snapshot.paramMap.get('id');
+    //this.tecnico.id = this.route.snapshot.paramMap.get('id');
     this.findById();
   }
   
   findById(): void {
-    this.service.findById(this.tecnico.id).subscribe(resposta => {
+    this.service.findById(this.data.id).subscribe(resposta => { // att para data.id para passar os dados no modal
       resposta.perfis = [];
       this.tecnico = resposta;
     });
@@ -48,6 +52,7 @@ export class TecnicoUpdateComponent implements OnInit {
 
   // metodo que atualiza um Tecnico
   update(): void {
+    this.onNoClick();
     this.service.update(this.tecnico).subscribe(() =>{
       this.toast.success('Técnico atualizado com sucesso', 'Update');
       this.router.navigate(['tecnicos'])
@@ -75,6 +80,10 @@ export class TecnicoUpdateComponent implements OnInit {
   // metodo que valida os campos de cadastro novo tecnico
   validaCampos(): boolean {
     return this.nome.valid && this.cpf.valid && this.email.valid && this.senha.valid
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

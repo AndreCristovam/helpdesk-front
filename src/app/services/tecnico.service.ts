@@ -1,13 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject} from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { API_CONFIG } from '../config/api.config';
 import { Tecnico } from '../models/tecnicos';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TecnicoService {
+
+  private _refresh$ = new Subject<void>();
+
+  get refresh$(){
+    return this._refresh$;
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -27,8 +35,13 @@ export class TecnicoService {
   }
 
   // metodo para atualização de tecnico
-  update(tecnico: Tecnico): Observable<Tecnico>{
-    return this.http.put<Tecnico>(`${API_CONFIG.baseUrl}tecnicos/${tecnico.id}`, tecnico);
+  update(tecnico: Tecnico): Observable<Tecnico> {
+    return this.http.put<Tecnico>(`${API_CONFIG.baseUrl}tecnicos/${tecnico.id}`, tecnico)
+      .pipe(
+        tap(() => {
+          this._refresh$.next();
+        })
+      )
   }
 
   delete(id: any): Observable<Tecnico> {

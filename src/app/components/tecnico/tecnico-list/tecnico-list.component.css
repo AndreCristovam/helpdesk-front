@@ -1,6 +1,7 @@
 .container {
   width: 90%;
   margin: auto;
+
 }
 
 table {
@@ -23,9 +24,16 @@ h1 {
 }
 
 .edit {
-  color: rgb(0, 153, 255);
+  color: rgb(0, 153, 255);  
 }
 
 .delete {
   color: red;
 }
+
+.mat-dialog-container {
+  padding: 0px!important;
+}
+
+
+
