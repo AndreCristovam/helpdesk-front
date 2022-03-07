@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/cliente';
@@ -23,6 +24,9 @@ export class ClienteDeleteComponent implements OnInit {
   }
  
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {id: Number}, // passando Id para o Modal
+    public dialogRef: MatDialogRef<ClienteDeleteComponent>,
+    public dialog: MatDialog, // modal
     private service: ClienteService,
     private toast: ToastrService,
     private router: Router,
@@ -30,20 +34,21 @@ export class ClienteDeleteComponent implements OnInit {
 
   ngOnInit(): void {
     // sempre que o componente inicia ele pega o id da url
-    this.cliente.id = this.route.snapshot.paramMap.get('id');
+    //this.cliente.id = this.route.snapshot.paramMap.get('id');
     this.findById();
   }
   
   findById(): void {
-    this.service.findById(this.cliente.id).subscribe(resposta => {
+    this.service.findById(this.data.id).subscribe(resposta => {
       resposta.perfis = [];
       this.cliente = resposta;
     });
   }
 
-  // metodo que atualiza um Cliente
+  
   delete(): void {
-    this.service.delete(this.cliente.id).subscribe(() =>{
+    this.onNoClick();
+    this.service.delete(this.data.id).subscribe(() =>{
       this.toast.success('Cliente deletado com sucesso.', 'Sucesso!');
       this.router.navigate(['clientes'])
     }, ex => {
@@ -57,5 +62,9 @@ export class ClienteDeleteComponent implements OnInit {
       }
     })
   } 
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }
