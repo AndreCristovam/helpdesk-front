@@ -31,7 +31,12 @@ export class TecnicoService {
 
   // metodo de criação de novo tecnico
   create(tecnico: Tecnico): Observable<Tecnico> {
-      return this.http.post<Tecnico>(`${API_CONFIG.baseUrl}tecnicos`, tecnico);
+      return this.http.post<Tecnico>(`${API_CONFIG.baseUrl}tecnicos`, tecnico)
+        .pipe(
+          tap(() => {
+            this._refresh$.next();
+          })
+        )
   }
 
   // metodo para atualização de tecnico

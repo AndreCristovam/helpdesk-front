@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Tecnico } from 'src/app/models/tecnicos';
@@ -28,6 +29,8 @@ export class TecnicoCreateComponent implements OnInit {
   senha: FormControl = new FormControl(null, Validators.minLength(3));
 
   constructor(
+    public dialogRef: MatDialogRef<TecnicoCreateComponent>,
+    public dialog: MatDialog,
     private service: TecnicoService,
     private toast: ToastrService,
     private router: Router) { }
@@ -37,8 +40,9 @@ export class TecnicoCreateComponent implements OnInit {
   
   // metodo que cria um novo Tecnico
   create(): void {
+    this.onNoClick();
     this.service.create(this.tecnico).subscribe(() =>{
-      this.toast.success('Técnico cadastrado com sucesso', 'Cadastro');
+      this.toast.success('Técnico cadastrado com sucesso', 'Sucesso!');
       this.router.navigate(['tecnicos'])
     }, ex => {
       console.log(ex);
@@ -64,6 +68,10 @@ export class TecnicoCreateComponent implements OnInit {
   // metodo que valida os campos de cadastro novo tecnico
   validaCampos(): boolean {
     return this.nome.valid && this.cpf.valid && this.email.valid && this.senha.valid
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

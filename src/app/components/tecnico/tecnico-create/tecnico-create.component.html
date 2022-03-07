@@ -5,7 +5,7 @@
 
         <section class="section">
             <mat-checkbox (click)="addPerfil(0)" class="margin" color="primary">Admin</mat-checkbox>  
-            <mat-checkbox (click)="addPerfil(1)" [checked]="true" class="margin" color="primary">Cliente</mat-checkbox> 
+            <mat-checkbox (click)="addPerfil(1)" class="margin" color="primary">Cliente</mat-checkbox> 
             <mat-checkbox (click)="addPerfil(2)" [checked]="true" class="margin" color="primary">Técnico</mat-checkbox>           
         </section>
         
@@ -57,6 +57,6 @@
         </mat-form-field>        
 
         <button (click)="create()" class="fullWidth mat-elevation-z8"  mat-flat-button color="primary">Cadastrar</button>
-        <button routerLink="../" class="fullWidth mat-elevation-z8"  mat-flat-button color="warn">Cancelar</button>    
+        <button (click)="onNoClick()" class="fullWidth mat-elevation-z8"  mat-flat-button color="warn">Cancelar</button>    
     </form>
 </div>

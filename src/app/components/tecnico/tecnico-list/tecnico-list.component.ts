@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 //import { report } from 'process';
 import { Tecnico } from 'src/app/models/tecnicos';
 import { TecnicoService } from 'src/app/services/tecnico.service';
+import { TecnicoCreateComponent } from '../tecnico-create/tecnico-create.component';
 import { TecnicoDeleteComponent } from '../tecnico-delete/tecnico-delete.component';
 import { TecnicoUpdateComponent } from '../tecnico-update/tecnico-update.component';
 
@@ -61,7 +62,7 @@ export class TecnicoListComponent implements OnInit {
     })
   }
 
-  // Modal Uopdate Tecnico
+  // Modal Update Tecnico
   openUpdate(id: Number): void {
     const dialogRef = this.dialog.open(TecnicoUpdateComponent, {
       width: '630px', height: '600px',
@@ -69,10 +70,17 @@ export class TecnicoListComponent implements OnInit {
     });
   }
 
+  
   openDelete(id: Number): void {
     const dialogRef = this.dialog.open(TecnicoDeleteComponent, {
       width: '630px', height: '600px',
       data: { id }//Pegando ID tecnico para editar..
+    });
+  }
+
+  openCreate(): void {
+    const dialogRef = this.dialog.open(TecnicoCreateComponent, {
+      width: '630px', height: '600px',     
     });
   }
 
