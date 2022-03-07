@@ -8,14 +8,8 @@ div.container {
     width: 100%;
 }
 
-h1, img {
+h1 {
     text-align: center;
-}
-
-img {
-    margin: auto;
-    width: 65%;
-    display: block;
 }
 
 .status-prioridade {

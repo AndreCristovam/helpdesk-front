@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Chamado } from 'src/app/models/chamado';
 import { ChamadoService } from 'src/app/services/chamado.service';
 import { ChamadoCreateComponent } from '../chamado-create/chamado-create.component';
+import { ChamadoReadComponent } from '../chamado-read/chamado-read.component';
 import { ChamadoUpdateComponent } from '../chamado-update/chamado-update.component';
 
 @Component({
@@ -24,7 +25,7 @@ export class ChamadoListComponent implements OnInit {
   dataSource = new MatTableDataSource<Chamado>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @Inject(MAT_DIALOG_DATA) public data: {id: Number} // recebendo o Id para o modal
+  @Inject(MAT_DIALOG_DATA) public data: {id: Number} 
 
   constructor(
     private service: ChamadoService,
@@ -100,7 +101,14 @@ export class ChamadoListComponent implements OnInit {
   openUpdate(id: Number): void {
     const dialogRef = this.dialog.open(ChamadoUpdateComponent, {
       width: '630px', height: '600px',
-      data: { id }//Pegando ID tecnico para editar..
+      data: { id }
+    });
+  }
+
+  openRead(id: Number): void {
+    const dialogRef = this.dialog.open(ChamadoReadComponent, {
+      width: '630px', height: '600px',
+      data: { id }
     });
   }
 

@@ -1,23 +1,15 @@
-.container {
-    width: 45%;
-    margin: auto;
-    padding: 1rem;
-    border-radius: 1rem;
-    margin-bottom: 5rem;
+div.container {
+    width:  94.6%;
+    padding: 1rem ;
+    border-radius: .6rem;
 }
 
 .full-width {
     width: 100%;
 }
 
-h1, img {
+h1 {
     text-align: center;
-}
-
-img {
-    margin: auto;
-    width: 65%;
-    display: block;
 }
 
 .status-prioridade {
@@ -30,7 +22,7 @@ img {
 }
 
 .observacoes {
-    min-height: 6rem;
+    min-height: 6.6rem;
     max-height: 10rem;
 }
 

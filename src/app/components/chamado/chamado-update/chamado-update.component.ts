@@ -40,9 +40,9 @@ export class ChamadoUpdateComponent implements OnInit {
   cliente:    FormControl = new FormControl(null, [Validators.required])
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {id: Number}, // passando Id para o Modal
+    @Inject(MAT_DIALOG_DATA) public data: {id: Number}, 
     public dialogRef: MatDialogRef<ChamadoUpdateComponent>,
-    public dialog: MatDialog, // modal
+    public dialog: MatDialog, 
     private chamadoService: ChamadoService,
     private clienteService: ClienteService, 
     private tecnicoService: TecnicoService,
@@ -50,8 +50,7 @@ export class ChamadoUpdateComponent implements OnInit {
     private router:         Router,
     private route:          ActivatedRoute) { }
 
-  ngOnInit(): void {
-    //this.chamado.id = this.route.snapshot.paramMap.get('id');
+  ngOnInit(): void {   
     this.findById();
     this.findAllClientes();
     this.findAllTecnicos();

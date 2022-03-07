@@ -60,7 +60,7 @@
               <i class="material-icons edit" (click)="openUpdate(element.id)">edit</i>
             </a>  
             <a routerLink="read/{{ element.id }}">
-              <i class="material-icons delete">visibility</i>
+              <i class="material-icons delete" (click)="openRead(element.id)">visibility</i>
             </a>
           </td>
         </ng-container>

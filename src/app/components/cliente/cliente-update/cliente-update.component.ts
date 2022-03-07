@@ -39,7 +39,6 @@ export class ClienteUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     // sempre que o componente inicia ele pega o id da url
-   // this.cliente.id = this.route.snapshot.paramMap.get('id');
     this.findById();
   }
   

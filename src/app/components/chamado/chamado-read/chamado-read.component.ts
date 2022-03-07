@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Chamado } from 'src/app/models/chamado';
@@ -24,17 +25,19 @@ export class ChamadoReadComponent implements OnInit {
   }
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {id: Number}, // passando Id para o Modal
+    public dialogRef: MatDialogRef<ChamadoReadComponent>,
+    public dialog: MatDialog, // modal
     private chamadoService: ChamadoService,    
     private toastService:   ToastrService, 
     private route:          ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.chamado.id = this.route.snapshot.paramMap.get('id');
+  ngOnInit(): void {    
     this.findById();    
   }
 
-  findById(): void {
-    this.chamadoService.findById(this.chamado.id).subscribe(resposta => {
+  findById(): void {   
+    this.chamadoService.findById(this.data.id).subscribe(resposta => {
       this.chamado = resposta;
     }, ex => {
       this.toastService.error(ex.error.error);
@@ -59,6 +62,10 @@ export class ChamadoReadComponent implements OnInit {
       return 'MÉDIA'
     }
     return 'ALTA'
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

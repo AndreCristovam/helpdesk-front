@@ -24,9 +24,9 @@ export class ClienteDeleteComponent implements OnInit {
   }
  
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {id: Number}, // passando Id para o Modal
+    @Inject(MAT_DIALOG_DATA) public data: {id: Number}, 
     public dialogRef: MatDialogRef<ClienteDeleteComponent>,
-    public dialog: MatDialog, // modal
+    public dialog: MatDialog, 
     private service: ClienteService,
     private toast: ToastrService,
     private router: Router,
@@ -34,7 +34,6 @@ export class ClienteDeleteComponent implements OnInit {
 
   ngOnInit(): void {
     // sempre que o componente inicia ele pega o id da url
-    //this.cliente.id = this.route.snapshot.paramMap.get('id');
     this.findById();
   }
   
