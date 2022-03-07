@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Chamado } from 'src/app/models/chamado';
 import { ChamadoService } from 'src/app/services/chamado.service';
 import { ChamadoCreateComponent } from '../chamado-create/chamado-create.component';
+import { ChamadoUpdateComponent } from '../chamado-update/chamado-update.component';
 
 @Component({
   selector: 'app-chamado-list',
@@ -93,6 +94,13 @@ export class ChamadoListComponent implements OnInit {
   openCreate(): void {
     const dialogRef = this.dialog.open(ChamadoCreateComponent, {
       width: '630px', height: '600px',     
+    });
+  }
+
+  openUpdate(id: Number): void {
+    const dialogRef = this.dialog.open(ChamadoUpdateComponent, {
+      width: '630px', height: '600px',
+      data: { id }//Pegando ID tecnico para editar..
     });
   }
 

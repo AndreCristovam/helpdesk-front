@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Chamado } from 'src/app/models/chamado';
@@ -39,6 +40,9 @@ export class ChamadoUpdateComponent implements OnInit {
   cliente:    FormControl = new FormControl(null, [Validators.required])
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {id: Number}, // passando Id para o Modal
+    public dialogRef: MatDialogRef<ChamadoUpdateComponent>,
+    public dialog: MatDialog, // modal
     private chamadoService: ChamadoService,
     private clienteService: ClienteService, 
     private tecnicoService: TecnicoService,
@@ -47,21 +51,22 @@ export class ChamadoUpdateComponent implements OnInit {
     private route:          ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.chamado.id = this.route.snapshot.paramMap.get('id');
+    //this.chamado.id = this.route.snapshot.paramMap.get('id');
     this.findById();
     this.findAllClientes();
     this.findAllTecnicos();
   }
 
   findById(): void {
-    this.chamadoService.findById(this.chamado.id).subscribe(resposta => {
+    this.chamadoService.findById(this.data.id).subscribe(resposta => {
       this.chamado = resposta;
     }, ex => {
       this.toastService.error(ex.error.error);
     })
   }
   update(): void {
-    this.chamadoService.update(this.chamado).subscribe(resposta => {
+      this.onNoClick();
+      this.chamadoService.update(this.chamado).subscribe(resposta => {
       this.toastService.success('Chamado atualizado com sucesso', 'Sucesso!');
       this.router.navigate(['chamados']);
     }, ex => {
@@ -105,6 +110,10 @@ export class ChamadoUpdateComponent implements OnInit {
     return this.prioridade.valid && this.status.valid &&
       this.titulo.valid && this.observacoes.valid &&
       this.tecnico.valid && this.cliente.valid
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
