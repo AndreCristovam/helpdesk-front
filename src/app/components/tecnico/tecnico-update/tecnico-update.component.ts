@@ -54,7 +54,7 @@ export class TecnicoUpdateComponent implements OnInit {
   update(): void {
     this.onNoClick();
     this.service.update(this.tecnico).subscribe(() =>{
-      this.toast.success('Técnico atualizado com sucesso', 'Update');
+      this.toast.success('Técnico atualizado com sucesso', 'Sucesso!');
       this.router.navigate(['tecnicos'])
     }, ex => {
       console.log(ex);
@@ -85,5 +85,4 @@ export class TecnicoUpdateComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

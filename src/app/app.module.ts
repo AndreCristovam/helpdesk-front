@@ -49,6 +49,7 @@ import { ChamadoUpdateComponent } from './components/chamado/chamado-update/cham
 import { ChamadoReadComponent } from './components/chamado/chamado-read/chamado-read.component';
 import {MatDialogModule} from '@angular/material/dialog'; 
 
+
 @NgModule({
   declarations: [
     AppComponent,

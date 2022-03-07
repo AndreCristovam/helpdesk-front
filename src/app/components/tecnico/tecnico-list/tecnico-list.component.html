@@ -40,10 +40,10 @@
             <th mat-header-cell *matHeaderCellDef> Ações </th>
             <td mat-cell *matCellDef="let element"> 
               <a routerLink="update/{{element.id}}">
-                <i class="material-icons edit" style="padding: 0%;" (click)="openUpdate(element.id)">edit</i>
+                <i class="material-icons edit" (click)="openUpdate(element.id)">edit</i>
               </a>  
               <a routerLink="delete/{{element.id}}">
-                <i class="material-icons delete">delete</i>
+                <i class="material-icons delete" (click)="openDelete(element.id)">delete</i>
               </a>
             </td>
           </ng-container>

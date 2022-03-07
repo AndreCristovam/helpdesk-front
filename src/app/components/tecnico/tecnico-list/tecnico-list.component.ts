@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 //import { report } from 'process';
 import { Tecnico } from 'src/app/models/tecnicos';
 import { TecnicoService } from 'src/app/services/tecnico.service';
+import { TecnicoDeleteComponent } from '../tecnico-delete/tecnico-delete.component';
 import { TecnicoUpdateComponent } from '../tecnico-update/tecnico-update.component';
 
 
@@ -27,7 +28,7 @@ export class TecnicoListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Inject(MAT_DIALOG_DATA) public data: {id: Number} // recebendo o Id para o modal
   constructor(
-   // public dialogRef: MatDialogRef<TecnicoListComponent>, // teste aki
+   //public dialogRef: MatDialogRef<TecnicoListComponent>, // teste aki
     private service: TecnicoService,
     public dialog: MatDialog) { }
 
@@ -63,6 +64,13 @@ export class TecnicoListComponent implements OnInit {
   // Modal Uopdate Tecnico
   openUpdate(id: Number): void {
     const dialogRef = this.dialog.open(TecnicoUpdateComponent, {
+      width: '630px', height: '600px',
+      data: { id }//Pegando ID tecnico para editar..
+    });
+  }
+
+  openDelete(id: Number): void {
+    const dialogRef = this.dialog.open(TecnicoDeleteComponent, {
       width: '630px', height: '600px',
       data: { id }//Pegando ID tecnico para editar..
     });

@@ -1,7 +1,6 @@
-.container {
-    width: 35rem;
-    margin: auto;
-    padding: 1rem 1rem 2rem 1rem;
+div.container {
+    width:  94.6%;
+    padding: 1rem ;
     border-radius: .6rem;
 }
 
@@ -14,7 +13,7 @@ h1{
 }
 
 img {
-    height: 12rem;
+    height: 9.9rem;
     margin: auto;    
 }
 
