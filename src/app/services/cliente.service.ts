@@ -40,7 +40,12 @@ export class ClienteService {
 
   // metodo para atualização de cliente
   update(cliente: Cliente): Observable<Cliente>{
-    return this.http.put<Cliente>(`${API_CONFIG.baseUrl}clientes/${cliente.id}`, cliente);
+    return this.http.put<Cliente>(`${API_CONFIG.baseUrl}clientes/${cliente.id}`, cliente)
+      .pipe(
+        tap(() => {
+          this._refresh$.next();
+        })
+      )
   }
 
   delete(id: any): Observable<Cliente> {

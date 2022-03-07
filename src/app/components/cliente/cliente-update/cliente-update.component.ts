@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/cliente';
@@ -28,6 +29,9 @@ export class ClienteUpdateComponent implements OnInit {
   senha: FormControl = new FormControl(null, Validators.minLength(3));
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {id: Number}, // passando Id para o Modal
+    public dialogRef: MatDialogRef<ClienteUpdateComponent>,
+    public dialog: MatDialog, // modal
     private service: ClienteService,
     private toast: ToastrService,
     private router: Router,
@@ -35,12 +39,12 @@ export class ClienteUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     // sempre que o componente inicia ele pega o id da url
-    this.cliente.id = this.route.snapshot.paramMap.get('id');
+   // this.cliente.id = this.route.snapshot.paramMap.get('id');
     this.findById();
   }
   
   findById(): void {
-    this.service.findById(this.cliente.id).subscribe(resposta => {
+    this.service.findById(this.data.id).subscribe(resposta => {
       resposta.perfis = [];
       this.cliente = resposta;
     });
@@ -48,8 +52,9 @@ export class ClienteUpdateComponent implements OnInit {
 
   // metodo que atualiza um Cliente
   update(): void {
+    this.onNoClick();
     this.service.update(this.cliente).subscribe(() =>{
-      this.toast.success('Cliente atualizado com sucesso', 'Update');
+      this.toast.success('Cliente atualizado com sucesso', 'Sucesso!');
       this.router.navigate(['clientes'])
     }, ex => {
       console.log(ex);
@@ -75,6 +80,10 @@ export class ClienteUpdateComponent implements OnInit {
   // metodo que valida os campos de cadastro novo cliente
   validaCampos(): boolean {
     return this.nome.valid && this.cpf.valid && this.email.valid && this.senha.valid
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
