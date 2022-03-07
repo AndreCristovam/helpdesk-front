@@ -29,9 +29,9 @@ const routes: Routes = [
      // { path: 'tecnicos/delete/:id', component: TecnicoDeleteComponent },
 
       { path: 'clientes',              component: ClienteListComponent },
-      { path: 'clientes/create',     component: ClienteCreateComponent },
-      { path: 'clientes/update/:id', component: ClienteUpdateComponent },
-      { path: 'clientes/delete/:id', component: ClienteDeleteComponent },
+      //{ path: 'clientes/create',     component: ClienteCreateComponent },
+      //{ path: 'clientes/update/:id', component: ClienteUpdateComponent },
+     // { path: 'clientes/delete/:id', component: ClienteDeleteComponent },
 
       { path: 'chamados',              component: ChamadoListComponent },
       { path: 'chamados/create',     component: ChamadoCreateComponent },

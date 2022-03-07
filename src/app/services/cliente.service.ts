@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { API_CONFIG } from '../config/api.config';
 import { Cliente } from '../models/cliente';
 
@@ -8,6 +9,12 @@ import { Cliente } from '../models/cliente';
   providedIn: 'root'
 })
 export class ClienteService {
+
+  private _refresh$ = new Subject<void>();
+
+  get refresh$(){
+    return this._refresh$;
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +30,12 @@ export class ClienteService {
 
   // metodo de criação de novo cliente
   create(cliente: Cliente): Observable<Cliente> {
-      return this.http.post<Cliente>(`${API_CONFIG.baseUrl}clientes`, cliente);
+      return this.http.post<Cliente>(`${API_CONFIG.baseUrl}clientes`, cliente)
+      .pipe(
+        tap(() => {
+          this._refresh$.next();
+        })
+      )
   }
 
   // metodo para atualização de cliente

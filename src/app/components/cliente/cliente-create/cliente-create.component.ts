@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/cliente';
@@ -28,6 +29,8 @@ export class ClienteCreateComponent implements OnInit {
   senha: FormControl = new FormControl(null, Validators.minLength(3));
 
   constructor(
+    public dialogRef: MatDialogRef<ClienteCreateComponent>,
+    public dialog: MatDialog,
     private service: ClienteService,
     private toast: ToastrService,
     private router: Router) { }
@@ -37,6 +40,7 @@ export class ClienteCreateComponent implements OnInit {
   
   // metodo que cria um novo Cliente
   create(): void {
+    this.onNoClick();
     this.service.create(this.cliente).subscribe(() =>{
       this.toast.success('Cliente cadastrado com sucesso', 'Cadastro');
       this.router.navigate(['clientes'])
@@ -64,6 +68,10 @@ export class ClienteCreateComponent implements OnInit {
   // metodo que valida os campos de cadastro novo cliente
   validaCampos(): boolean {
     return this.nome.valid && this.cpf.valid && this.email.valid && this.senha.valid
+  }
+  
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

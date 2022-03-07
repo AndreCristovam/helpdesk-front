@@ -28,6 +28,7 @@ export class TecnicoListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Inject(MAT_DIALOG_DATA) public data: {id: Number} // recebendo o Id para o modal
+  
   constructor(
    //public dialogRef: MatDialogRef<TecnicoListComponent>, // teste aki
     private service: TecnicoService,
