@@ -1,9 +1,7 @@
-.container {
-    width: 45%;
-    margin: auto;
-    padding: 1rem;
-    border-radius: 1rem;
-    margin-bottom: 5rem;
+div.container {
+    width:  94.6%;
+    padding: 1rem ;
+    border-radius: .6rem;
 }
 
 .full-width {
@@ -30,7 +28,7 @@ img {
 }
 
 .observacoes {
-    min-height: 6rem;
+    min-height: 3.7rem;
     max-height: 10rem;
 }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Chamado } from 'src/app/models/chamado';
@@ -38,6 +39,8 @@ export class ChamadoCreateComponent implements OnInit {
   cliente:    FormControl = new FormControl(null, [Validators.required])
 
   constructor(
+    public dialogRef:       MatDialogRef<ChamadoCreateComponent>,
+    public dialog:          MatDialog,
     private chamadoService: ChamadoService,
     private clienteService: ClienteService, 
     private tecnicoService: TecnicoService,
@@ -50,6 +53,7 @@ export class ChamadoCreateComponent implements OnInit {
   }
 
   create(): void {
+    this.onNoClick();
     this.chamadoService.create(this.chamado).subscribe(resposta => {
       this.toastService.success('Chamado criado com sucesso', 'Novo chamado');
       this.router.navigate(['chamados']);
@@ -73,6 +77,10 @@ export class ChamadoCreateComponent implements OnInit {
     return this.prioridade.valid && this.status.valid &&
       this.titulo.valid && this.observacoes.valid &&
       this.tecnico.valid && this.cliente.valid
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

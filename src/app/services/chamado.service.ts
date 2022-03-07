@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { API_CONFIG } from '../config/api.config';
 import { Chamado } from '../models/chamado';
 
@@ -8,6 +9,12 @@ import { Chamado } from '../models/chamado';
   providedIn: 'root'
 })
 export class ChamadoService {
+
+  private _refresh$ = new Subject<void>();
+
+  get refresh$(){
+    return this._refresh$;
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +27,12 @@ export class ChamadoService {
   }
 
   create(chamado: Chamado): Observable<Chamado> {
-    return this.http.post<Chamado>(`${API_CONFIG.baseUrl}chamados`, chamado);
+    return this.http.post<Chamado>(`${API_CONFIG.baseUrl}chamados`, chamado)
+      .pipe(
+        tap(() => {
+          this._refresh$.next();
+        })
+      )
   }
 
   update(chamado: Chamado): Observable<Chamado> {

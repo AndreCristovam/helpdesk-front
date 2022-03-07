@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { Chamado } from 'src/app/models/chamado';
 import { ChamadoService } from 'src/app/services/chamado.service';
+import { ChamadoCreateComponent } from '../chamado-create/chamado-create.component';
 
 @Component({
   selector: 'app-chamado-list',
@@ -14,19 +17,35 @@ export class ChamadoListComponent implements OnInit {
   ELEMENT_DATA: Chamado[] = []
   FILTERED_DATA: Chamado[] = []
 
+  refreshTable: Subscription;
+
   displayedColumns: string[] = ['id', 'titulo', 'cliente', 'tecnico', 'dataAbertura', 'prioridade', 'status', 'acoes'];
   dataSource = new MatTableDataSource<Chamado>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @Inject(MAT_DIALOG_DATA) public data: {id: Number} // recebendo o Id para o modal
 
-  constructor(private service: ChamadoService) { }
+  constructor(
+    private service: ChamadoService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.findAll();
+    this.refresh();
+  }
+
+  ngOnDestroy(): void {
+    this.refreshTable.unsubscribe();
+  }
+
+  refresh(){
+    this.refreshTable = this.service.refresh$.subscribe(() => {
+      this.findAll();
+    })
   }
 
   findAll(): void {
-    this.service.findAll().subscribe(resposta => {
+      this.service.findAll().subscribe(resposta => {
       this.ELEMENT_DATA = resposta;
       this.dataSource = new MatTableDataSource<Chamado>(resposta);
       this.dataSource.paginator = this.paginator;
@@ -69,6 +88,12 @@ export class ChamadoListComponent implements OnInit {
     this.FILTERED_DATA = list;
     this.dataSource = new MatTableDataSource<Chamado>(list);
     this.dataSource.paginator = this.paginator;
+  } 
+
+  openCreate(): void {
+    const dialogRef = this.dialog.open(ChamadoCreateComponent, {
+      width: '630px', height: '600px',     
+    });
   }
 
 }
